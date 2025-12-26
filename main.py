@@ -1,0 +1,50 @@
+import os
+
+items = "\n".join(
+    f'        <li><a href="./{repr(i)[1:-1]}">{i}</a></li>'
+    for i in os.listdir(".")
+    if not (i.endswith(".py") or i.endswith(".html"))
+)
+
+src = (
+    r"""<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Directory listing for /</title>
+    <style>
+        code {
+            line-height: 1.6;
+            word-wrap: break-word;
+            font-family: Menlo,Monaco,Consolas,'Courier New',monospace;
+            font-size: .85em !important;
+            color: #000;
+            background-color: #f0f0f0;
+            border-radius: 3px;
+            padding: .2em 0;
+        }
+        code::before, code::after {
+            content: "\00a0";
+            font-size: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Directory listing for /</h1>
+    <hr>
+    <ul>
+"""
+    + items
+    + r"""
+    </ul>
+    <hr>
+</body>
+
+</html>
+"""
+)
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(src)
